@@ -272,13 +272,13 @@ def get_rsi_crossover_stocks(rsi_period=31, sma_period=31, sma_threshold=51):
 if __name__ == "__main__":
     # Telegram Bot Ayarları
     # BotFather'dan aldığınız token'ı buraya yazın
-    TELEGRAM_BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"  # Örnek: "123456789:ABCdefGHIjklMNOpqrsTUVwxyz"
+    TELEGRAM_BOT_TOKEN = "8256592463:AAHlJ3BQSvwUDOQuKCYAhKwAwMMWUFJXE4o"  # Örnek: "123456789:ABCdefGHIjklMNOpqrsTUVwxyz"
     
     # Chat ID'nizi buraya yazın (kendi chat ID'niz veya grup ID'si)
-    TELEGRAM_CHAT_ID = "YOUR_CHAT_ID_HERE"  # Örnek: "123456789" veya "-100123456789" (grup için)
+    TELEGRAM_CHAT_ID = "1008660822"  # Örnek: "123456789" veya "-100123456789" (grup için)
     
     # Telegram'a gönderilsin mi?
-    SEND_TO_TELEGRAM = False  # True yapın telegram'a göndermek için
+    SEND_TO_TELEGRAM = True  # True yapın telegram'a göndermek için
     
     print("🔄 Analiz başlatılıyor...\n")
     
@@ -312,4 +312,5 @@ if __name__ == "__main__":
                 send_telegram_message(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, telegram_message)
         else:
             print("\n💡 Telegram'a göndermek için SEND_TO_TELEGRAM = True yapın")
+
             print("📝 Bot Token ve Chat ID'yi kod içinde ayarlamayı unutmayın!")
