@@ -94,8 +94,8 @@ def calculate_rsi(data, period=31):
     rsi = 100 - (100 / (1 + rs))
     return rsi
 
-# BIST100 hisse listesi (örnek - daha fazla eklenebilir)
-bist100_stocks = [
+# BIST Hisse Sembolleri
+SYMBOLS = [
     "A1CAP.IS", "ADEL.IS", "ADESE.IS", "ADGYO.IS", "AEFES.IS", "AFYON.IS",
     "AGESA.IS", "AGHOL.IS", "AGROT.IS", "AHGAZ.IS", "AHSGY.IS", "AKBNK.IS",
     "AKCNS.IS", "AKENR.IS", "AKFGY.IS", "AKFIS.IS", "AKFYE.IS", "AKGRT.IS",
@@ -358,4 +358,3 @@ if __name__ == "__main__":
             print("\n📤 Telegram'a gönderiliyor...")
             telegram_message = format_telegram_message(df_all, df_fresh)
             send_telegram_message(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, telegram_message)
-
