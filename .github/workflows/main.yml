@@ -1,4 +1,4 @@
-name: BIST 100 RSI Haftalık Analiz
+name: OrtaVadeTrend
 
 on:
   # Her Pazartesi saat 09:00'da çalış (Türkiye saati yaklaşık 12:00)
