@@ -73,21 +73,14 @@ def format_telegram_message(df_all, df_fresh):
     
     # Tüm sonuçlar özeti
     if not df_all.empty:
-        message += f"📈 <b>TÜM SONUÇLAR ÖZETİ</b>\n"
+        message += f"📈 <b>TÜM SONUÇLAR</b>\n"
         message += f"Toplam: {len(df_all)} hisse\n"
         message += f"Bu hafta kesen: {len(df_fresh)} hisse\n"
         message += f"Daha önce kesen: {len(df_all) - len(df_fresh)} hisse\n\n"
         
-        message += f"<b>İstatistikler:</b>\n"
-        message += f"  • Ort. Mor Çizgi: {df_all['Mor_Çizgi'].mean():.2f}\n"
-        message += f"  • Ort. Sarı Çizgi: {df_all['Sarı_Çizgi'].mean():.2f}\n"
-        message += f"  • Ort. Fark: {df_all['Fark'].mean():.2f}\n\n"
-        
-        # En yüksek fark'a sahip 5 hisse
-        message += "<b>En Güçlü 5 Hisse:</b>\n"
-        top5 = df_all.head(5)
-        for idx, row in top5.iterrows():
-            message += f"  {row['Hisse']}: Fark +{row['Fark']} | Fiyat {row['Fiyat']} TL\n"
+        # Tüm hisseleri listele (sadece sembol isimleri)
+        for idx, row in df_all.iterrows():
+            message += f"{row['Hisse']}\n"
     
     return message
 
@@ -271,14 +264,9 @@ def get_rsi_crossover_stocks(rsi_period=31, sma_period=31, sma_threshold=51):
 # Kodu çalıştır
 if __name__ == "__main__":
     # Telegram Bot Ayarları
-    # BotFather'dan aldığınız token'ı buraya yazın
-    TELEGRAM_BOT_TOKEN = "8256592463:AAHlJ3BQSvwUDOQuKCYAhKwAwMMWUFJXE4o"  # Örnek: "123456789:ABCdefGHIjklMNOpqrsTUVwxyz"
-    
-    # Chat ID'nizi buraya yazın (kendi chat ID'niz veya grup ID'si)
-    TELEGRAM_CHAT_ID = "1008660822"  # Örnek: "123456789" veya "-100123456789" (grup için)
-    
-    # Telegram'a gönderilsin mi?
-    SEND_TO_TELEGRAM = True  # True yapın telegram'a göndermek için
+    TELEGRAM_BOT_TOKEN = "8256592463:AAHlJ3BQSvwUDOQuKCYAhKwAwMMWUFJXE4o"
+    TELEGRAM_CHAT_ID = "1008660822"
+    SEND_TO_TELEGRAM = True
     
     print("🔄 Analiz başlatılıyor...\n")
     
@@ -301,16 +289,6 @@ if __name__ == "__main__":
         
         # Telegram'a gönder
         if SEND_TO_TELEGRAM:
-            if TELEGRAM_BOT_TOKEN == "YOUR_BOT_TOKEN_HERE" or TELEGRAM_CHAT_ID == "YOUR_CHAT_ID_HERE":
-                print("\n⚠️  UYARI: Telegram bot token ve chat ID'sini ayarlayın!")
-                print("📝 Nasıl alınır:")
-                print("   1. Bot Token: @BotFather'a /newbot komutu gönderin")
-                print("   2. Chat ID: @userinfobot'a mesaj gönderin")
-            else:
-                print("\n📤 Telegram'a gönderiliyor...")
-                telegram_message = format_telegram_message(df_all, df_fresh)
-                send_telegram_message(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, telegram_message)
-        else:
-            print("\n💡 Telegram'a göndermek için SEND_TO_TELEGRAM = True yapın")
-
-            print("📝 Bot Token ve Chat ID'yi kod içinde ayarlamayı unutmayın!")
+            print("\n📤 Telegram'a gönderiliyor...")
+            telegram_message = format_telegram_message(df_all, df_fresh)
+            send_telegram_message(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, telegram_message)
