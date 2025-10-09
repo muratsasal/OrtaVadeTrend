@@ -1,0 +1,46 @@
+name: BIST 100 RSI Haftalık Analiz
+
+on:
+  # Her Pazartesi saat 09:00'da çalış (Türkiye saati yaklaşık 12:00)
+  schedule:
+    - cron: '0 9 * * 1'
+  
+  # Manuel olarak da çalıştırılabilir
+  workflow_dispatch:
+
+# GitHub Actions'a yazma yetkisi ver
+permissions:
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout kod
+      uses: actions/checkout@v3
+    
+    - name: Python kurulumu
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Gerekli paketleri yükle
+      run: |
+        pip install yfinance pandas numpy requests
+    
+    - name: BIST analizi çalıştır
+      run: |
+        python OrtaVadeTrend.py
+    
+    - name: Sonuçları commit ve push et
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add results.json
+        if ! git diff --quiet --staged; then
+          git commit -m "🤖 Otomatik analiz sonuçları - $(date +'%Y-%m-%d %H:%M')"
+          git push
+        else
+          echo "Değişiklik yok, push atlanıyor"
+        fi
