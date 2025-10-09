@@ -206,7 +206,7 @@ def get_rsi_crossover_stocks(rsi_period=31, sma_period=31, sma_threshold=51):
     print(f"  2) Şu anda: MOR ÇİZGİ > SARI ÇİZGİ")
     print(f"\n{'='*90}")
     
-    for stock in bist100_stocks:
+    for stock in SYMBOLS:
         try:
             # Haftalık veri çekme
             data = yf.download(stock, start=start_date, end=end_date, 
@@ -358,3 +358,4 @@ if __name__ == "__main__":
             print("\n📤 Telegram'a gönderiliyor...")
             telegram_message = format_telegram_message(df_all, df_fresh)
             send_telegram_message(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, telegram_message)
+
